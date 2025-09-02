@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-commit-generator"
+version = "0.1.0"
+description = "AI-powered git commit message generator using conventional commits"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "stylspan19@gmail.com"}
+]
+keywords = ["git", "commit", "ai", "conventional-commits", "openai"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Version Control :: Git",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "openai>=1.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/SteliosSpanos/ai-commit-generator"
+Repository = "https://github.com/SteliosSpanos/ai-commit-generator.git"
+Issues = "https://github.com/SteliosSpanos/ai-commit-generator/issues"
+
+[project.scripts]
+ai-commit = "commit_generator:main"
+
+[tool.setuptools]
+py-modules = ["commit_generator", "install_hook"]
