@@ -28,14 +28,38 @@ def install_hook():
     script_dir = Path(__file__).parent
     commit_generator_path = script_dir / "commit_generator.py"
 
-    hook_content = f"""
-        # AI Commit Message Generator Hook
+    hook_content = f"""#!/bin/bash
+# AI Commit Message Generator Hook
 
-        # Only run for regular commits (not merges, rebases, etc.)
-        if [ "$2" == "" ] || [ "$2" == "message" ]; then
-            python3 "{commit_generator_path.absolute()}" --message-file "$1"
-        fi
-    """
+# Enable debugging (remove these lines in production)
+exec 2> >(tee -a /tmp/git-hook-debug.log)
+echo "Hook started at $(date)" >&2
+echo "Arguments: $1 $2 $3" >&2
+
+# Only run for regular commits (not merges, rebases, etc.)
+if [ "$2" = "" ] || [ "$2" = "message" ]; then
+    echo "Running AI commit generator..." >&2
+    
+    # Check if python3 is available
+    if command -v python3 &> /dev/null; then
+        echo "Using python3" >&2
+        python3 "{commit_generator_path.absolute()}" --message-file "$1" 2>&1
+        exit_code=$?
+    elif command -v python &> /dev/null; then
+        echo "Using python" >&2
+        python "{commit_generator_path.absolute()}" --message-file "$1" 2>&1
+        exit_code=$?
+    else
+        echo "Error: Python not found" >&2
+        exit 1
+    fi
+    
+    echo "Hook completed with exit code: $exit_code" >&2
+    exit $exit_code
+else
+    echo "Skipping hook (merge/rebase/etc.)" >&2
+fi
+"""
 
     with open(hook_path, "w") as f:
         f.write(hook_content)

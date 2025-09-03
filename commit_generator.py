@@ -87,7 +87,7 @@ class CommitGenerator:
     def generate_commit_message(self, diff_content: str, context: dict) -> str:
         """Generate commit message using OpenAI API"""
         if not diff_content.strip():
-            print("No staged changed found.", file=sys.stderr)
+            print("No staged changes found.", file=sys.stderr)
             sys.exit(1)
 
         if len(diff_content) > self.config.max_diff_length:
@@ -121,31 +121,31 @@ class CommitGenerator:
             project_context = f"This is a {context["project_type"]} project. "
 
         return f"""
-            You are an expert developer who writes perfect git commit messages following the Conventional Commits specification.
-            {project_context}Analyze the following git diff and generate a single commit message that:
+You are an expert developer who writes perfect git commit messages following the Conventional Commits specification.
+{project_context}Analyze the following git diff and generate a single commit message that:
             
-            1. Uses the format: <type>(<scope>): <description>
-            2. Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build
-            3. Scope is optional but helpful (e.g., auth, ui, api, deps)
-            4. Keep description under 50 characters
-            5. Be specific and descriptive
-            6. Use imperative mood (e.g., "add" not "added")
-            7. Don't include "fix typo" for obvious typos, be more specific
+1. Uses the format: <type>(<scope>): <description>
+2. Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build
+3. Scope is optional but helpful (e.g., auth, ui, api, deps)
+4. Keep description under 50 characters
+5. Be specific and descriptive
+6. Use imperative mood (e.g., "add" not "added")
+7. Don't include "fix typo" for obvious typos, be more specific
 
-            Examples of good commit messages:
-            - feat(auth): add OAuth login flow
-            - fix(api): handle null user response
-            - docs: update installation guide
-            - refactor(utils): extract validation logic
-            - test(auth): add login component tests
+Examples of good commit messages:
+- feat(auth): add OAuth login flow
+- fix(api): handle null user response
+- docs: update installation guide
+- refactor(utils): extract validation logic
+- test(auth): add login component tests
 
-            Git diff:
-            '''
-            {diff_content}
-            '''
+Git diff:
+'''
+{diff_content}
+'''
 
-            Respond with ONLY the commit message, nothing else. No explanations, no quotes, just the commit message.
-        """
+Respond with ONLY the commit message, nothing else. No explanations, no quotes, just the commit message.
+"""
 
 def load_config() -> Config:
     """Load configuration from environment variables and config file"""

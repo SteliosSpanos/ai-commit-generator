@@ -7,7 +7,7 @@ An intelligent git hook that automatically generates conventional commit message
 - 🤖 **AI-Powered**: Uses OpenAI GPT-4 to understand your code changes
 - 📝 **Conventional Commits**: Generates properly formatted conventional commit messages
 - 🔧 **Easy Setup**: Simple installation and configuration
-- 🎯 **Context Aware**: Understands different project types (Python, Node.js, etc.)
+- 🧠 **Context Aware**: Understands different project types (Python, Node.js, etc.)
 - ⚡ **Fast**: Quick generation with smart diff truncation
 - 🛠️ **Flexible**: Can be used as a git hook or standalone tool
 
@@ -158,8 +158,8 @@ Make sure you've staged files with `git add` before committing
 
 ## Roadmap
 
-- Support for other LLM providers (Anthropic, local models)
-- Configuration file support
-- Better handling of large repositories
-- Integration with popular git GUIs
-- Custom prompt templates
+1. Support for other LLM providers (Anthropic, local models)
+2. Configuration file support
+3. Better handling of large repositories
+4. Integration with popular git GUIs
+5. Custom prompt templates
