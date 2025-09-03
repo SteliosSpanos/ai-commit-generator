@@ -1,9 +1,6 @@
 import subprocess
 import sys
 import os
-import json
-from typing import Optional
-import argparse
 from dataclasses import dataclass
 import openai
 from dotenv import load_dotenv
@@ -162,33 +159,3 @@ def load_config() -> Config:
         max_diff_length=int(os.getenv("AI_COMMIT_MAX_DIFF_LENGTH", "8000")),
         temperature=float(os.getenv("AI_COMMIT_TEMPERATURE", "0.3"))
     )
-
-def main():
-    parser = argparse.ArgumentParser(description="Generate AI-powered git commit messages")
-    parser.add_argument("--dry-run", action="store_true", help="Print message without committing")
-    parser.add_argument("--message-file", help="Write message to file (for git hooks)")
-    parser.add_argument("--diff", help="Use provided diff instead of staged changes")
-    args = parser.parse_args()
-
-    config = load_config()
-    generator = CommitGenerator(config)
-
-    if args.diff:
-        diff_content = args.diff
-    else:
-        diff_content = generator.get_staged_diff()
-
-    context = generator.get_repo_context()
-    commit_message = generator.generate_commit_message(diff_content, context)
-
-    if args.dry_run:
-        print(f"Generated commit message: {commit_message}")
-    elif args.message_file:
-        with open(args.message_file, "w") as f:
-            f.write(commit_message)
-        print(f"Commit message written to {args.message_file}")
-    else:
-        print(commit_message)
-
-if __name__ == "__main__":
-    main()
