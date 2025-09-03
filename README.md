@@ -158,8 +158,8 @@ Make sure you've staged files with `git add` before committing
 
 ## Roadmap
 
-- [ ] Support for other LLM providers (Anthropic, local models)
-- [ ] Configuration file support
-- [ ] Better handling of large repositories
-- [ ] Integration with popular git GUIs
-- [ ] Custom prompt templates
+- Support for other LLM providers (Anthropic, local models)
+- Configuration file support
+- Better handling of large repositories
+- Integration with popular git GUIs
+- Custom prompt templates
