@@ -37,7 +37,7 @@ echo "Hook started at $(date)" >&2
 echo "Arguments: $1 $2 $3" >&2
 
 # Only run for regular commits (not merges, rebases, etc.)
-if [ "$2" = "" ] || [ "$2" = "message" ]; then
+if [ "$2" == "" ] || [ "$2" == "message" ]; then
     echo "Running AI commit generator..." >&2
     
     # Check if python3 is available
