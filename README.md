@@ -1,165 +1,206 @@
-# AI Git Commit Message Generator
+# AI Commit Generator 🤖
 
-An intelligent git hook that automatically generates conventional commit messages using AI by analyzing your staged changes.
+Generate intelligent, conventional commit messages using AI. This tool analyzes your staged changes and creates meaningful commit messages following the [Conventional Commits](https://www.conventionalcommits.org/) specification.
 
-## Features
+## ✨ Features
 
-- 🤖 **AI-Powered**: Uses OpenAI GPT-4 to understand your code changes
-- 📝 **Conventional Commits**: Generates properly formatted conventional commit messages
-- 🔧 **Easy Setup**: Simple installation and configuration
-- 🧠 **Context Aware**: Understands different project types (Python, Node.js, etc.)
-- ⚡ **Fast**: Quick generation with smart diff truncation
-- 🛠️ **Flexible**: Can be used as a git hook or standalone tool
+- 🤖 **AI-Powered**: Uses OpenAI's GPT models to analyze your code changes
+- 📝 **Conventional Commits**: Follows the standard format (`type(scope): description`)
+- 🔍 **Smart Analysis**: Detects project type and provides contextual commit messages
+- ⚡ **Fast & Reliable**: Simple command-line interface that always works
+- 🛡️ **Safe**: Interactive confirmation before committing
+- 🚀 **Flexible**: Supports dry-run mode and auto-push options
 
-## Installation
+## 🚀 Quick Start
 
-### Prerequisites
-
-- Python 3.8+
-- Git
-- OpenAI API key
-
-### Quick Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/ai-commit-generator.git
-   cd ai-commit-generator
-   ```
-
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Set up your OpenAI API key**
-   ```bash
-   cp .env.example .env
-   # Edit .env and add your OpenAI API key
-   ```
-
-4. **Install the git hook in your project**
-   ```bash
-   cd /path/to/your/project
-   python /path/to/ai-commit-generator/install_hook.py install
-   ```
-
-## Usage
-
-### As a Git Hook (Automatic)
-
-Once installed, the hook will automatically generate commit messages:
+### 1. Clone and Setup
 
 ```bash
-git add .
-git commit  # Message will be auto-generated!
+git clone https://github.com/SteliosSpanos/ai-commit-generator.git
+cd ai-commit-generator
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set up your OpenAI API key
+cp .env.example .env
+# Edit .env and add your OPENAI_API_KEY
 ```
 
-### As a Standalone Tool
+### 2. Configure OpenAI API Key
+
+Get your API key from [OpenAI](https://platform.openai.com/api-keys) and add it to `.env`:
 
 ```bash
-# Generate message for staged changes
-python commit_generator.py
-
-# Dry run (just show the message)
-python commit_generator.py --dry-run
-
-# Use custom diff
-python commit_generator.py --diff "your diff content here"
-```
-
-## Configuration
-
-Set these environment variables in your `.env` file:
-
-```bash
-# Required
 OPENAI_API_KEY=your_api_key_here
-
-# Optional
-AI_COMMIT_MODEL=gpt-4                    # OpenAI model to use
-AI_COMMIT_MAX_DIFF_LENGTH=8000          # Max diff length to send to AI
-AI_COMMIT_TEMPERATURE=0.3               # AI creativity (0.0-1.0)
+AI_COMMIT_MODEL=gpt-4  # Optional: gpt-3.5-turbo, gpt-4, etc.
+AI_COMMIT_TEMPERATURE=0.3  # Optional: 0.0-1.0
 ```
 
-## Example Output
-
-The tool generates conventional commit messages like:
-
-- `feat(auth): add OAuth2 login flow`
-- `fix(api): handle null user response`
-- `docs: update installation guide`
-- `refactor(utils): extract validation logic`
-- `test(auth): add login component tests`
-
-## How It Works
-
-1. **Analyzes** your staged git changes
-2. **Detects** project type and context
-3. **Sends** diff to OpenAI with carefully crafted prompt
-4. **Generates** a conventional commit message
-5. **Sets** it as your commit message
-
-## Supported Project Types
-
-The tool automatically detects and optimizes for:
-
-- Python (requirements.txt, pyproject.toml)
-- Node.js (package.json)
-- Java (pom.xml)
-- Rust (Cargo.toml)
-- Go (go.mod)
-- PHP (composer.json)
-
-## Uninstall
-
-To remove the git hook:
+### 3. Basic Usage
 
 ```bash
-python install_hook.py uninstall
+# Stage your changes
+git add .
+
+# Generate and commit with AI
+python3 ai_commit.py
+
+# Just see the generated message (no commit)
+python3 ai_commit.py --dry-run
+
+# Commit and push automatically
+python3 ai_commit.py --push
 ```
 
-## Development
+## 📋 Usage Examples
 
-### Running Tests
+### Basic Workflow
+```bash
+# Make some changes to your code
+echo "console.log('Hello World');" >> app.js
+
+# Stage the changes
+git add app.js
+
+# Generate AI commit message and commit
+python3 ai_commit.py
+```
+
+**Output:**
+```
+📝 Staged files: app.js
+🤖 Generated message: feat(app): add hello world console log
+Commit with this message? [Y/n]: y
+✅ Commit successful!
+```
+
+### Advanced Usage
 
 ```bash
-# Test with sample diff
-python commit_generator.py --diff "$(git diff HEAD~1)"
+# Dry run - see message without committing
+python3 ai_commit.py --dry-run
+
+# Commit and push in one command
+python3 ai_commit.py --push
+
+# Use with different models (in .env)
+AI_COMMIT_MODEL=gpt-3.5-turbo
 ```
 
-### Contributing
+## ⚙️ Configuration Options
+
+Create a `.env` file in your project root:
+
+```env
+# Required
+OPENAI_API_KEY=sk-your-api-key-here
+
+# Optional configurations
+AI_COMMIT_MODEL=gpt-4                    # Model to use (gpt-4, gpt-3.5-turbo)
+AI_COMMIT_MAX_DIFF_LENGTH=8000          # Maximum diff length to analyze
+AI_COMMIT_TEMPERATURE=0.3               # Creativity level (0.0-1.0)
+```
+
+## 🛠️ Installation Methods
+
+### Method 1: Direct Usage (Recommended)
+```bash
+# From any git repository
+python3 /path/to/ai-commit-generator/ai_commit.py
+```
+
+### Method 2: Git Alias
+```bash
+# Set up a global git alias
+git config --global alias.aic '!python3 /path/to/ai-commit-generator/ai_commit.py'
+
+# Now use anywhere
+git aic
+git aic --dry-run
+git aic --push
+```
+
+### Method 3: System Alias
+Add to your `~/.bashrc` or `~/.zshrc`:
+```bash
+alias aic="python3 /path/to/ai-commit-generator/ai_commit.py"
+```
+
+## 📝 Commit Message Examples
+
+The AI generates messages following conventional commits:
+
+| Change Type | Generated Message |
+|-------------|-------------------|
+| New feature | `feat(auth): add OAuth login flow` |
+| Bug fix | `fix(api): handle null user response` |
+| Documentation | `docs: update installation guide` |
+| Refactoring | `refactor(utils): extract validation logic` |
+| Tests | `test(auth): add login component tests` |
+| Dependencies | `chore(deps): update axios to v1.5.0` |
+
+## 🎯 Supported Project Types
+
+The AI automatically detects your project type for better context:
+
+- **JavaScript/Node.js**: `package.json`
+- **Python**: `requirements.txt`, `pyproject.toml`
+- **Java**: `pom.xml`
+- **Rust**: `Cargo.toml`
+- **Go**: `go.mod`
+- **PHP**: `composer.json`
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**"No staged changes found"**
+```bash
+# Make sure you've staged your changes
+git add .
+git status  # Should show "Changes to be committed"
+```
+
+**"OpenAI API error"**
+```bash
+# Check your API key in .env
+cat .env | grep OPENAI_API_KEY
+
+# Test your API key
+python3 -c "import openai; openai.api_key='your-key'; print('API key works!')"
+```
+
+**"Permission denied"**
+```bash
+# Make the script executable
+chmod +x ai_commit.py
+```
+
+### Debug Mode
+
+For troubleshooting, you can add debug output:
+```python
+# Temporarily add to ai_commit.py
+import os
+print(f"Working dir: {os.getcwd()}")
+print(f"API Key set: {bool(os.getenv('OPENAI_API_KEY'))}")
+```
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Make your changes
 4. Test thoroughly
-5. Submit a pull request
+5. Commit using the AI tool: `python3 ai_commit.py`
+6. Push to your branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
-## License
+## 📜 License
 
-MIT License - see LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Troubleshooting
+---
 
-### "OpenAI API key not set"
-Make sure your `.env` file contains `OPENAI_API_KEY=your_key_here`
-
-### "Git not found"
-Ensure git is installed and in your PATH
-
-### "No staged changes found"
-Make sure you've staged files with `git add` before committing
-
-### Hook not working
-- Verify the hook is executable: `ls -la .git/hooks/prepare-commit-msg`
-- Check the hook content references the correct script path
-- Ensure Python dependencies are installed
-
-## Roadmap
-
-1. Support for other LLM providers (Anthropic, local models)
-2. Configuration file support
-3. Better handling of large repositories
-4. Integration with popular git GUIs
-5. Custom prompt templates
+**Made with ❤️ for developers who want better commit messages**
