@@ -202,4 +202,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Made with ❤️ for developers who want better commit messages**
+**Made with ❤️ for developers who want better commit messages!!**
