@@ -96,7 +96,7 @@ class CommitGenerator:
             response = openai.chat.completions.create(
                 model=self.config.model,
                 messages=[{"role" : "user", "content" : prompt}],
-                max_tokens=100,
+                max_completion_tokens=100,
                 temperature=self.config.temperature
             )
 

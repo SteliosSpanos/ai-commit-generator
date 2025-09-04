@@ -33,8 +33,7 @@ Get your API key from [OpenAI](https://platform.openai.com/api-keys) and add it 
 
 ```bash
 OPENAI_API_KEY=your_api_key_here
-AI_COMMIT_MODEL=gpt-4  # Optional: gpt-3.5-turbo, gpt-4, etc.
-AI_COMMIT_TEMPERATURE=0.3  # Optional: 0.0-1.0
+AI_COMMIT_MODEL=gpt-4
 ```
 
 ### 3. Basic Usage
@@ -97,9 +96,9 @@ Create a `.env` file in your project root:
 OPENAI_API_KEY=sk-your-api-key-here
 
 # Optional configurations
-AI_COMMIT_MODEL=gpt-4                    # Model to use (gpt-4, gpt-3.5-turbo)
-AI_COMMIT_MAX_DIFF_LENGTH=8000          # Maximum diff length to analyze
-AI_COMMIT_TEMPERATURE=0.3               # Creativity level (0.0-1.0)
+AI_COMMIT_MODEL=gpt-4     
+AI_COMMIT_MAX_DIFF_LENGTH=8000   # Maximum diff length to analyze
+AI_COMMIT_TEMPERATURE            # Creativity (0.0 - 1.0)
 ```
 
 ## 🛠️ Installation Methods

@@ -1,6 +1,5 @@
 import subprocess
 import sys
-import os
 import argparse
 from commit_generator import CommitGenerator, load_config
 
